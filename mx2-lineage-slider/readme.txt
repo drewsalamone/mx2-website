@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,13 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.1 =
+Mobile fixes: hide redundant slider topbar (host theme already has a header);
+let the slider grow to its content height so the dates row no longer collides
+with the bottom controls bar; reserve right-side safe area so sticky launcher
+widgets (e.g. "Get In Touch") don't clip identity-card and story text;
+suppress the giant century numeral on phones; tighten name typography.
 
 = 1.0.0 =
 Initial release.

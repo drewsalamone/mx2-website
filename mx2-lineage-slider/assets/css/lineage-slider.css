@@ -10,6 +10,7 @@
 	--font-display: "Cormorant", "Cormorant Garamond", "EB Garamond", Georgia, serif;
 	--font-body: "Josefin Sans", "Brandon Grotesque", "Avenir Next", system-ui, sans-serif;
 	--mx2-lineage-height: 100vh;
+	--mx2-lineage-right-safe: 0px;
 
 	position: relative;
 	display: block;
@@ -542,15 +543,17 @@
 /* Mobile / tablet */
 @media (max-width: 760px) {
 	.mx2-lineage {
-		min-height: 100svh;
-		height: 100svh;
+		/* Auto-grow rather than locking 100svh — the WP theme adds a sticky
+		   header and a "Get In Touch" widget that we need to play around. */
+		min-height: 0;
+		height: auto;
+		/* Reserve right-side space so sticky launcher widgets don't clip text. */
+		--mx2-lineage-right-safe: 64px;
 	}
-	.mx2-lineage__topbar { padding: 14px 16px; }
-	.mx2-lineage__topbar .mx2-lineage__eyebrow { display: none; }
-	.mx2-lineage__title-row { margin: 0 auto; gap: 10px; }
-	.mx2-lineage__rule { width: 28px; }
-	.mx2-lineage__h2 { font-size: 15px; }
-	.mx2-lineage__ornament { font-size: 16px; }
+
+	/* Hide the slider's own topbar on mobile — the host theme's site header
+	   already provides identity, and the slider topbar collides with it. */
+	.mx2-lineage__topbar { display: none; }
 
 	.mx2-lineage__corner { display: none; }
 
@@ -558,24 +561,39 @@
 	.mx2-lineage__fs-btn { width: 32px; height: 32px; }
 	.mx2-lineage__fs-btn svg { width: 12px; height: 12px; }
 
+	/* Stop stacking slides as absolute layers — let them flow vertically so
+	   each slide can size to its own content. The active slide is visible,
+	   others are visually hidden but still stacked underneath, so the page
+	   always renders at the active slide's height. */
+	.mx2-lineage__slides { position: relative; min-height: 1px; }
+	.mx2-lineage__slide { position: relative; inset: auto; }
+	.mx2-lineage__slide:not(.is-active) {
+		position: absolute;
+		inset: 0;
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+	}
+
 	.mx2-lineage__slide-grid {
+		position: relative;
+		inset: auto;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto auto auto;
 		align-items: start;
 		justify-items: center;
-		padding: 56px 20px 140px;
-		gap: 12px;
-		overflow-y: auto;
-		height: 100%;
-		-webkit-overflow-scrolling: touch;
+		padding: 24px 16px 96px;
+		gap: 14px;
+		overflow: visible;
+		height: auto;
 	}
 
 	.mx2-lineage__portrait-wrap {
 		grid-column: 1;
 		grid-row: 1;
-		width: min(78vw, 320px);
-		height: min(60vh, 380px);
-		margin-top: 8px;
+		width: min(72vw, 280px);
+		height: min(46vh, 320px);
+		margin-top: 4px;
 	}
 	.mx2-lineage__portrait-halo { inset: 8px 16px; }
 	.mx2-lineage__portrait-bracket { width: 24px; height: 24px; }
@@ -583,7 +601,7 @@
 	.mx2-lineage__portrait-bracket--tr { top: 4px; right: 8px; }
 	.mx2-lineage__portrait-bracket--bl { bottom: 4px; left: 8px; }
 	.mx2-lineage__portrait-bracket--br { bottom: 4px; right: 8px; }
-	.mx2-lineage__portrait-img-wrap { width: 80%; height: 90%; }
+	.mx2-lineage__portrait-img-wrap { width: 88%; height: 92%; }
 	.mx2-lineage__portrait-placeholder { width: 60%; height: 80%; }
 	.mx2-lineage__placeholder-mark { font-size: 64px; }
 
@@ -591,24 +609,31 @@
 		grid-column: 1;
 		grid-row: 2;
 		width: 100%;
-		max-width: 360px;
-		padding-right: 0;
+		max-width: calc(100vw - 32px - var(--mx2-lineage-right-safe));
+		padding: 0 var(--mx2-lineage-right-safe) 0 8px;
 		text-align: center;
 		transform: translateY(8px);
 	}
 	.mx2-lineage__slide.is-active .mx2-lineage__id-card { transform: translateY(0); }
-	.mx2-lineage__ord { font-size: 56px; }
-	.mx2-lineage__role { font-size: 10px; letter-spacing: 0.22em; margin-top: 8px; }
-	.mx2-lineage__name { font-size: 30px; line-height: 1.05; margin-top: 4px; }
-	.mx2-lineage__epithet { font-size: 17px; margin-top: 4px; }
-	.mx2-lineage__id-rule { margin: 12px auto; }
+	.mx2-lineage__ord { font-size: 44px; }
+	.mx2-lineage__role { font-size: 10px; letter-spacing: 0.22em; margin-top: 6px; }
+	.mx2-lineage__name {
+		font-size: 26px;
+		line-height: 1.05;
+		margin-top: 4px;
+		overflow-wrap: break-word;
+		word-break: break-word;
+		hyphens: auto;
+	}
+	.mx2-lineage__epithet { font-size: 15px; margin-top: 4px; }
+	.mx2-lineage__id-rule { margin: 10px auto; }
 	.mx2-lineage__dates { font-size: 11px; }
 
 	.mx2-lineage__story {
 		grid-column: 1;
 		grid-row: 3;
-		max-width: 360px;
-		padding: 0 8px;
+		max-width: calc(100vw - 32px - var(--mx2-lineage-right-safe));
+		padding: 0 var(--mx2-lineage-right-safe) 0 8px;
 		text-align: center;
 		transform: translateY(8px);
 	}
@@ -618,20 +643,33 @@
 	.mx2-lineage__quote { font-size: 15px; padding-top: 12px; margin-top: 14px; }
 	.mx2-lineage__attribution { font-size: 9px; letter-spacing: 0.14em; margin-top: 12px; }
 
-	.mx2-lineage__century { font-size: 180px; opacity: 0.55; }
+	.mx2-lineage__century {
+		/* The big ghost numeral overlaps stacked content on phones; hide it. */
+		display: none;
+	}
 
-	.mx2-lineage__controls { padding: 12px 14px 16px; gap: 10px; }
+	/* Pin controls inside the slider section but offset right edge so the
+	   sticky "Get In Touch" tab doesn't sit over the count + scrub meta. */
+	.mx2-lineage__controls {
+		padding: 12px var(--mx2-lineage-right-safe) 16px 14px;
+		gap: 10px;
+	}
 	.mx2-lineage__arrow { width: 44px; height: 44px; font-size: 22px; flex-shrink: 0; }
-	.mx2-lineage__progress { margin: 0 8px; gap: 8px; }
+	.mx2-lineage__progress { margin: 0 8px; gap: 8px; min-width: 0; }
 	.mx2-lineage__count { font-size: 12px; }
 	.mx2-lineage__ticks { display: none; }
-	.mx2-lineage__scrub-meta { font-size: 9.5px; letter-spacing: 0.16em; }
+	.mx2-lineage__scrub-meta {
+		font-size: 9.5px;
+		letter-spacing: 0.16em;
+		white-space: normal;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 }
 
 @media (max-width: 380px) {
-	.mx2-lineage__name { font-size: 26px; }
-	.mx2-lineage__epithet { font-size: 15px; }
+	.mx2-lineage { --mx2-lineage-right-safe: 56px; }
+	.mx2-lineage__name { font-size: 22px; }
+	.mx2-lineage__epithet { font-size: 14px; }
 	.mx2-lineage__story p { font-size: 13px; }
-	.mx2-lineage__h2 { font-size: 13px; }
-	.mx2-lineage__rule { width: 18px; }
 }
