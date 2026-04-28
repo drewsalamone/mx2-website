@@ -457,18 +457,59 @@
 			return r.top < vh && r.bottom > 0;
 		}
 
-		// Fullscreen
+		// Fullscreen — try the real API first, fall back to a CSS
+		// "pseudo-fullscreen" (position: fixed; inset: 0) on browsers that
+		// don't support requestFullscreen on non-video elements (iOS).
+		var pseudoFs = false;
+
+		function enterPseudoFs() {
+			if ( pseudoFs ) return;
+			pseudoFs = true;
+			root.classList.add( 'is-fullscreen-pseudo' );
+			document.documentElement.classList.add( 'mx2-lineage-fs-lock' );
+		}
+		function exitPseudoFs() {
+			if ( ! pseudoFs ) return;
+			pseudoFs = false;
+			root.classList.remove( 'is-fullscreen-pseudo' );
+			document.documentElement.classList.remove( 'mx2-lineage-fs-lock' );
+		}
+
 		function toggleFs() {
 			var d = document;
-			if ( ! d.fullscreenElement && ! d.webkitFullscreenElement ) {
-				var req = root.requestFullscreen || root.webkitRequestFullscreen;
-				if ( req ) { req.call( root ); }
-			} else {
+			var realFsActive = d.fullscreenElement === root || d.webkitFullscreenElement === root;
+
+			if ( pseudoFs ) {
+				exitPseudoFs();
+				return;
+			}
+			if ( realFsActive ) {
 				var exit = d.exitFullscreen || d.webkitExitFullscreen;
 				if ( exit ) { exit.call( d ); }
+				return;
+			}
+
+			var req = root.requestFullscreen || root.webkitRequestFullscreen;
+			if ( ! req ) {
+				enterPseudoFs();
+				return;
+			}
+			try {
+				var p = req.call( root );
+				if ( p && typeof p.then === 'function' ) {
+					p.catch( function () { enterPseudoFs(); } );
+				}
+			} catch ( e ) {
+				enterPseudoFs();
 			}
 		}
+
 		if ( fsBtn ) fsBtn.addEventListener( 'click', toggleFs );
+
+		// Esc out of pseudo-fullscreen (real fullscreen is handled by the browser)
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' && pseudoFs ) { exitPseudoFs(); }
+		} );
 
 		// Autoplay
 		var interval = parseInt( root.getAttribute( 'data-interval' ), 10 ) || 8000;

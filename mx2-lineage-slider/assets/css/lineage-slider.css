@@ -565,7 +565,7 @@
 		grid-template-rows: auto auto auto;
 		align-items: start;
 		justify-items: center;
-		padding: 20px 16px 96px;
+		padding: 20px 16px 130px;
 		gap: 10px;
 		overflow-y: auto;
 		height: 100%;
@@ -630,20 +630,35 @@
 	/* The big ghost century numeral fights with stacked text on phones. */
 	.mx2-lineage__century { display: none; }
 
+	/* Two-row controls: progress (count + scrub meta) on top, prev/next
+	   arrows centered below. Keeps both arrows away from the edges where
+	   the host theme's sticky launcher widget sits. */
 	.mx2-lineage__controls {
-		padding: 12px var(--mx2-lineage-right-safe) 16px 14px;
-		gap: 10px;
+		display: grid;
+		grid-template-columns: 1fr auto auto 1fr;
+		grid-template-rows: auto auto;
+		column-gap: 16px;
+		row-gap: 8px;
+		padding: 10px 12px 14px;
 	}
+	.mx2-lineage__controls > .mx2-lineage__progress {
+		grid-column: 1 / -1;
+		grid-row: 1;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+		margin: 0;
+		text-align: center;
+	}
+	.mx2-lineage__controls > [data-mx2-lineage-prev] { grid-column: 2; grid-row: 2; }
+	.mx2-lineage__controls > [data-mx2-lineage-next] { grid-column: 3; grid-row: 2; }
 	.mx2-lineage__arrow { width: 44px; height: 44px; font-size: 22px; flex-shrink: 0; }
-	.mx2-lineage__progress { margin: 0 8px; gap: 8px; min-width: 0; }
 	.mx2-lineage__count { font-size: 12px; }
 	.mx2-lineage__ticks { display: none; }
 	.mx2-lineage__scrub-meta {
 		font-size: 9.5px;
 		letter-spacing: 0.16em;
 		white-space: normal;
-		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 }
 
@@ -653,3 +668,26 @@
 	.mx2-lineage__epithet { font-size: 13px; }
 	.mx2-lineage__story p { font-size: 12.5px; }
 }
+
+/* Pseudo-fullscreen — used on browsers that don't support the real
+   Fullscreen API on regular elements (notably iOS Safari/Chrome). The
+   slider pins itself to the viewport so it visually fills the screen. */
+.mx2-lineage.is-fullscreen-pseudo {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100vh;
+	height: 100dvh;
+	min-height: 0;
+	max-height: none;
+	z-index: 999999;
+	margin: 0;
+}
+html.mx2-lineage-fs-lock,
+html.mx2-lineage-fs-lock body {
+	overflow: hidden;
+}
+.mx2-lineage.is-fullscreen-pseudo .mx2-lineage__ico-enter,
+.mx2-lineage:fullscreen .mx2-lineage__ico-enter { display: none; }
+.mx2-lineage.is-fullscreen-pseudo .mx2-lineage__ico-exit,
+.mx2-lineage:fullscreen .mx2-lineage__ico-exit { display: block; }

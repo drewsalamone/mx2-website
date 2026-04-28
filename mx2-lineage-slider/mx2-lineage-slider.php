@@ -3,7 +3,7 @@
  * Plugin Name:       MX2 Lineage Slider
  * Plugin URI:        https://www.mx2.agency/
  * Description:       Renders the MEDICI + MAESTRO lineage slider via the [mx2_lineage_slider] shortcode. Drop the shortcode into any page or post.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Mx2 Global
  * License:           GPL-2.0-or-later
  * Text Domain:       mx2-lineage-slider
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.2' );
+define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.3' );
 define( 'MX2_LINEAGE_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MX2_LINEAGE_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 
