@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,15 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.2 =
+Restore the original slide stacking model on mobile (one-at-a-time with
+opacity transitions); 1.0.1 had reflowed slides into normal document flow,
+which broke the slider behavior. Keep the targeted mobile fixes from 1.0.1
+(hide redundant topbar, right safe area for sticky launcher widgets, hide
+giant century numeral) and tighten portrait + identity-card sizing so the
+content fits inside the small viewport without colliding with the bottom
+controls bar.
 
 = 1.0.1 =
 Mobile fixes: hide redundant slider topbar (host theme already has a header);

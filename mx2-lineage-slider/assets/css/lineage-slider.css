@@ -543,16 +543,15 @@
 /* Mobile / tablet */
 @media (max-width: 760px) {
 	.mx2-lineage {
-		/* Auto-grow rather than locking 100svh — the WP theme adds a sticky
-		   header and a "Get In Touch" widget that we need to play around. */
-		min-height: 0;
-		height: auto;
-		/* Reserve right-side space so sticky launcher widgets don't clip text. */
+		min-height: 100svh;
+		height: 100svh;
+		/* Reserve right-side space so sticky launcher widgets (e.g. the
+		   "Get In Touch" tab on mx2.agency) don't clip text. */
 		--mx2-lineage-right-safe: 64px;
 	}
 
 	/* Hide the slider's own topbar on mobile — the host theme's site header
-	   already provides identity, and the slider topbar collides with it. */
+	   already provides identity and the two collide. */
 	.mx2-lineage__topbar { display: none; }
 
 	.mx2-lineage__corner { display: none; }
@@ -561,38 +560,23 @@
 	.mx2-lineage__fs-btn { width: 32px; height: 32px; }
 	.mx2-lineage__fs-btn svg { width: 12px; height: 12px; }
 
-	/* Stop stacking slides as absolute layers — let them flow vertically so
-	   each slide can size to its own content. The active slide is visible,
-	   others are visually hidden but still stacked underneath, so the page
-	   always renders at the active slide's height. */
-	.mx2-lineage__slides { position: relative; min-height: 1px; }
-	.mx2-lineage__slide { position: relative; inset: auto; }
-	.mx2-lineage__slide:not(.is-active) {
-		position: absolute;
-		inset: 0;
-		height: 0;
-		overflow: hidden;
-		visibility: hidden;
-	}
-
 	.mx2-lineage__slide-grid {
-		position: relative;
-		inset: auto;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto auto auto;
 		align-items: start;
 		justify-items: center;
-		padding: 24px 16px 96px;
-		gap: 14px;
-		overflow: visible;
-		height: auto;
+		padding: 20px 16px 96px;
+		gap: 10px;
+		overflow-y: auto;
+		height: 100%;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.mx2-lineage__portrait-wrap {
 		grid-column: 1;
 		grid-row: 1;
-		width: min(72vw, 280px);
-		height: min(46vh, 320px);
+		width: min(64vw, 240px);
+		height: min(40vh, 280px);
 		margin-top: 4px;
 	}
 	.mx2-lineage__portrait-halo { inset: 8px 16px; }
@@ -603,7 +587,7 @@
 	.mx2-lineage__portrait-bracket--br { bottom: 4px; right: 8px; }
 	.mx2-lineage__portrait-img-wrap { width: 88%; height: 92%; }
 	.mx2-lineage__portrait-placeholder { width: 60%; height: 80%; }
-	.mx2-lineage__placeholder-mark { font-size: 64px; }
+	.mx2-lineage__placeholder-mark { font-size: 56px; }
 
 	.mx2-lineage__id-card {
 		grid-column: 1;
@@ -615,18 +599,18 @@
 		transform: translateY(8px);
 	}
 	.mx2-lineage__slide.is-active .mx2-lineage__id-card { transform: translateY(0); }
-	.mx2-lineage__ord { font-size: 44px; }
-	.mx2-lineage__role { font-size: 10px; letter-spacing: 0.22em; margin-top: 6px; }
+	.mx2-lineage__ord { font-size: 36px; }
+	.mx2-lineage__role { font-size: 10px; letter-spacing: 0.22em; margin-top: 4px; }
 	.mx2-lineage__name {
-		font-size: 26px;
+		font-size: 24px;
 		line-height: 1.05;
-		margin-top: 4px;
+		margin-top: 2px;
 		overflow-wrap: break-word;
 		word-break: break-word;
 		hyphens: auto;
 	}
-	.mx2-lineage__epithet { font-size: 15px; margin-top: 4px; }
-	.mx2-lineage__id-rule { margin: 10px auto; }
+	.mx2-lineage__epithet { font-size: 14px; margin-top: 2px; }
+	.mx2-lineage__id-rule { margin: 8px auto; }
 	.mx2-lineage__dates { font-size: 11px; }
 
 	.mx2-lineage__story {
@@ -638,18 +622,14 @@
 		transform: translateY(8px);
 	}
 	.mx2-lineage__slide.is-active .mx2-lineage__story { transform: translateY(0); }
-	.mx2-lineage__where { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 10px; }
-	.mx2-lineage__story p { font-size: 13.5px; line-height: 1.6; }
-	.mx2-lineage__quote { font-size: 15px; padding-top: 12px; margin-top: 14px; }
-	.mx2-lineage__attribution { font-size: 9px; letter-spacing: 0.14em; margin-top: 12px; }
+	.mx2-lineage__where { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 8px; }
+	.mx2-lineage__story p { font-size: 13px; line-height: 1.55; }
+	.mx2-lineage__quote { font-size: 14px; padding-top: 10px; margin-top: 12px; }
+	.mx2-lineage__attribution { font-size: 9px; letter-spacing: 0.14em; margin-top: 10px; }
 
-	.mx2-lineage__century {
-		/* The big ghost numeral overlaps stacked content on phones; hide it. */
-		display: none;
-	}
+	/* The big ghost century numeral fights with stacked text on phones. */
+	.mx2-lineage__century { display: none; }
 
-	/* Pin controls inside the slider section but offset right edge so the
-	   sticky "Get In Touch" tab doesn't sit over the count + scrub meta. */
 	.mx2-lineage__controls {
 		padding: 12px var(--mx2-lineage-right-safe) 16px 14px;
 		gap: 10px;
@@ -670,6 +650,6 @@
 @media (max-width: 380px) {
 	.mx2-lineage { --mx2-lineage-right-safe: 56px; }
 	.mx2-lineage__name { font-size: 22px; }
-	.mx2-lineage__epithet { font-size: 14px; }
-	.mx2-lineage__story p { font-size: 13px; }
+	.mx2-lineage__epithet { font-size: 13px; }
+	.mx2-lineage__story p { font-size: 12.5px; }
 }
