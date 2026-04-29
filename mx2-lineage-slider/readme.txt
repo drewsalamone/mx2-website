@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,11 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.5 =
+Append the plugin version as a query string to portrait image URLs so a
+fresh deploy automatically busts the browser cache for swapped photos
+(WordPress's built-in ?ver= cache-buster only fires on enqueued CSS/JS).
 
 = 1.0.4 =
 Pulled the second design handoff. Three new portraits — Camilla Orsini (IX),

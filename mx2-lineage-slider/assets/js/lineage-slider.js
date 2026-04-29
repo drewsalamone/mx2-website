@@ -339,6 +339,8 @@
 
 		var config = window.MX2LineageSliderConfig || {};
 		var portraitsUrl = config.portraitsUrl || '';
+		var version = config.version || '';
+		var verSuffix = version ? ( '?ver=' + encodeURIComponent( version ) ) : '';
 
 		var slidesEl = root.querySelector( '[data-mx2-lineage-slides]' );
 		var ticksEl = root.querySelector( '[data-mx2-lineage-ticks]' );
@@ -364,7 +366,7 @@
 			if ( f.portrait ) {
 				portraitInner =
 					'<img class="mx2-lineage__portrait-img" src="' +
-					escapeHtml( portraitsUrl + f.portrait ) +
+					escapeHtml( portraitsUrl + f.portrait + verSuffix ) +
 					'" alt="' + escapeHtml( f.name ) +
 					'" loading="' + ( i < 2 ? 'eager' : 'lazy' ) + '" />';
 			} else {
