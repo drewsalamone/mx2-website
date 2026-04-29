@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,14 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.6 =
+Topbar: bumped left/right padding from 48px to 80px on desktop/tablet so
+the right-side eyebrow ("Medici → Salamone") clears the absolutely-
+positioned fullscreen button (which was clipping the final "e").
+Mobile: id-card and story switched from asymmetric padding to symmetric
+max-width with auto margins, so the centered text actually sits in the
+visual center of the viewport instead of drifting left of true center.
 
 = 1.0.5 =
 Append the plugin version as a query string to portrait image URLs so a

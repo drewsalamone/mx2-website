@@ -53,7 +53,7 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	padding: 28px 48px;
+	padding: 28px 80px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -593,8 +593,9 @@
 		grid-column: 1;
 		grid-row: 2;
 		width: 100%;
-		max-width: calc(100vw - 32px - var(--mx2-lineage-right-safe));
-		padding: 0 var(--mx2-lineage-right-safe) 0 8px;
+		max-width: calc(100vw - 2 * var(--mx2-lineage-right-safe));
+		padding: 0;
+		margin: 0 auto;
 		text-align: center;
 		transform: translateY(8px);
 	}
@@ -616,8 +617,10 @@
 	.mx2-lineage__story {
 		grid-column: 1;
 		grid-row: 3;
-		max-width: calc(100vw - 32px - var(--mx2-lineage-right-safe));
-		padding: 0 var(--mx2-lineage-right-safe) 0 8px;
+		width: 100%;
+		max-width: calc(100vw - 2 * var(--mx2-lineage-right-safe));
+		padding: 0;
+		margin: 0 auto;
 		text-align: center;
 		transform: translateY(8px);
 	}
