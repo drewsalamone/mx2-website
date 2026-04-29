@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,14 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.4 =
+Pulled the second design handoff. Three new portraits — Camilla Orsini (IX),
+Marcantonio Borghese (XII), Flaminia Borghese (XIII) — replace placeholder
+cards. Updated portrait for Drew Salamone (XXII). New shared "Arms of the
+House of Orsini" image now stands in for the four Orsini-line generations
+(XIV, XVI, XVII, XVIII) where no likeness survives, replacing generic
+placeholder cards. Attribution lines updated to match.
 
 = 1.0.3 =
 Mobile controls reflowed into two rows (progress meta on top, prev/next

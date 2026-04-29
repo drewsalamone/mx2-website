@@ -123,7 +123,7 @@
 		},
 		{
 			ord: 'IX',
-			portrait: null,
+			portrait: '09_camilla_duo.png',
 			role: '10th Great-Grandmother',
 			name: 'Camilla Orsini',
 			epithet: 'la principessa',
@@ -131,7 +131,7 @@
 			where: 'Rome  ·  House of Borghese',
 			story: 'Virginio’s daughter. Married Marcantonio II Borghese; the Orsini line marries into the rising Borghese, who hold the papal throne and the keys to Roman taste. Lived eighty-two years — long enough to watch the Baroque become its own century.',
 			quote: '“The alliance that turned the family Roman.”',
-			attribution: 'No portrait survives',
+			attribution: 'Portrait, 17th c. Roman school',
 			year: '1620',
 			gen: '10th great-grandmother'
 		},
@@ -165,7 +165,7 @@
 		},
 		{
 			ord: 'XII',
-			portrait: null,
+			portrait: '12_marcantonio_duo.png',
 			role: '7th Great-Grandfather',
 			name: 'Marcantonio Borghese',
 			epithet: 'il prudente',
@@ -173,13 +173,13 @@
 			where: 'Rome  ·  Papal States',
 			story: 'Inherited the gallery, the villa, and the obligation. Sat for the late-Baroque masters and consolidated the Borghese collection that the Galleria still bears his family’s name for.',
 			quote: '“You inherit the rooms. You earn the right to keep them.”',
-			attribution: 'No portrait identified',
+			attribution: 'Portrait, Borghese family archive',
 			year: '1700',
 			gen: '7th great-grandfather'
 		},
 		{
 			ord: 'XIII',
-			portrait: null,
+			portrait: '13_flaminia_duo.png',
 			role: '6th Great-Grandmother',
 			name: 'Flaminia Borghese',
 			epithet: 'la breve',
@@ -187,13 +187,13 @@
 			where: 'Rome  ·  House of Orsini',
 			story: 'Married back into the Orsini and gave the family one daughter — Ana Paula — before dying at twenty-six. The Borghese name yields back to Orsini through her.',
 			quote: '“Twenty-six years. One daughter. The line continues.”',
-			attribution: 'No portrait survives',
+			attribution: 'Arms of the House of Borghese  ·  no likeness survives',
 			year: '1715',
 			gen: '6th great-grandmother'
 		},
 		{
 			ord: 'XIV',
-			portrait: null,
+			portrait: 'orsini_arms_duo.png',
 			role: '5th Great-Grandmother',
 			name: 'Ana Paula Flaminia Orsini',
 			epithet: 'l’erede',
@@ -201,7 +201,7 @@
 			where: 'Rome  ·  Papal States',
 			story: 'Born to a mother who died young; lived twenty years. Bore Filippo Bernualdo before her own life ended — the Orsini name now carried entirely through her son.',
 			quote: '“She gave the family its next century. Then she went.”',
-			attribution: 'No portrait survives',
+			attribution: 'Arms of the House of Orsini  ·  no likeness survives',
 			year: '1740',
 			gen: '5th great-grandmother'
 		},
@@ -221,7 +221,7 @@
 		},
 		{
 			ord: 'XVI',
-			portrait: null,
+			portrait: 'orsini_arms_duo.png',
 			role: '3rd Great-Grandfather',
 			name: 'Don Benedetto Orsini',
 			epithet: 'il giovane',
@@ -229,13 +229,13 @@
 			where: 'Rome  ·  Bourbon Court',
 			story: 'Son of the duke. Lived thirty-two years through the upheaval that ended the old Italian order — the Parthenopean Republic, the Bourbons returning, Napoleon’s shadow lengthening. Died young; the title moved on.',
 			quote: '“Thirty-two years inside the storm.”',
-			attribution: 'No portrait survives',
+			attribution: 'Arms of the House of Orsini  ·  no likeness survives',
 			year: '1800',
 			gen: '3rd great-grandfather'
 		},
 		{
 			ord: 'XVII',
-			portrait: null,
+			portrait: 'orsini_arms_duo.png',
 			role: '2nd Great-Grandfather',
 			name: 'Fillippo Orsini',
 			epithet: 'l’ottocento',
@@ -243,13 +243,13 @@
 			where: 'Southern Italy  ·  the Risorgimento’s eve',
 			story: 'Born under Napoleon, died on the eve of unification. Lived through the long collapse of the Bourbon order; the family is no longer at court but still on the land.',
 			quote: '“The century when the names mattered less and the work mattered more.”',
-			attribution: 'No portrait survives',
+			attribution: 'Arms of the House of Orsini  ·  no likeness survives',
 			year: '1830',
 			gen: '2nd great-grandfather'
 		},
 		{
 			ord: 'XVIII',
-			portrait: null,
+			portrait: 'orsini_arms_duo.png',
 			role: 'Great-Great-Grandfather',
 			name: 'Antonio Orsini',
 			epithet: 'il padre',
@@ -257,7 +257,7 @@
 			where: 'Southern Italy  ·  Kingdom of Italy',
 			story: 'Born the year Rome rose and fell again; died with the new Italian century. The family is now of southern Italy — land, work, music, the long quiet inheritance.',
 			quote: '“The quiet generations are how a family survives.”',
-			attribution: 'No photograph survives',
+			attribution: 'Arms of the House of Orsini  ·  no likeness survives',
 			year: '1880',
 			gen: '2nd great-grandfather'
 		},
