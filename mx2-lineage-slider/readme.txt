@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,20 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.7 =
+Pulled the third Claude Design handoff. New cover slide ("Figure 0")
+introduces the lineage before Cosimo: Mx2 mark, "The Bloodline" title,
+route line (Florence → Rome → San Lupo → America), 22 / 5 / 1 stats,
+opening quote, and two vertical edge friezes of faint sepia portraits.
+Navigation totals 23 slides; the 22 ticks remain mapped to the figures
+and clicking a tick now advances to the matching figure (idx + 1).
+Counter shows 00/22 on the cover; year and generation labels read "—"
+and "before the work" while the cover is active.
+Copy edits: Cosimo (I) quote typo "Medicis" → "Medici"; Rosina (XX)
+dates end "America" not "Philadelphia" and where reads "Norristown, PA"
+instead of "South Philadelphia"; Drew (XXII) story rewritten and quote
+updated to "Festina Lente." Updated portraits for Drew and John.
 
 = 1.0.6 =
 Topbar: bumped left/right padding from 48px to 80px on desktop/tablet so

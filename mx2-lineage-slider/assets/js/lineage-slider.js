@@ -18,7 +18,7 @@
 			dates: '1389 — 1464  ·  Florence',
 			where: 'Florence  ·  Republic of Florence',
 			story: 'Banker, statesman, and the original patron of the Renaissance. Engineered the Medici Bank into the most powerful financial house in Europe — then quietly used the leverage to bankroll Donatello, Brunelleschi, and Fra Angelico. The blueprint for taste as a discipline.',
-			quote: '“The Medicis didn’t buy art. They commissioned it.”',
+			quote: '“The Medici didn’t buy art. They commissioned it.”',
 			attribution: 'Portrait attributed to Jacopo Pontormo',
 			year: '1389',
 			gen: '19th great-grandfather'
@@ -281,8 +281,8 @@
 			role: 'Grandmother',
 			name: 'Rosina Orsini',
 			epithet: 'the keeper',
-			dates: '1906 — 1997  ·  San Lupo, Italy  →  Philadelphia',
-			where: 'San Lupo, Italy  →  South Philadelphia  ·  the family table',
+			dates: '1906 — 1997  ·  San Lupo, Italy  →  America',
+			where: 'San Lupo, Italy  →  Norristown, PA  ·  the family table',
 			story: 'Lupangelo’s daughter. Carried the Orsini name across the ocean; took Salamone by marriage but kept everything else. Always said her family was from royalty, but nobody believed her — until now.',
 			quote: '“You inherit the name. You earn the standard.”',
 			attribution: 'Family photograph, c. 1948',
@@ -311,8 +311,8 @@
 			epithet: 'old soul, new tricks',
 			dates: 'b. 1974  ·  Norristown, PA',
 			where: 'MEDICI + MAESTRO  ·  Mx2 Global',
-			story: 'Twenty-second in the line. Founder of MEDICI + MAESTRO and Mx2 Global. Picked up where the family left off — strategy, taste, and craft as the inheritance. Builds brands the way Cosimo built workshops: with patience and the right people.',
-			quote: '“Old souls. New tricks.”',
+			story: 'Twenty-second in the line. Founder of MEDICI + MAESTRO. Curious, cunning and creative — picked up where the family left off. Influenced by music, art and history to build brands that matter centuries later.',
+			quote: '“Festina Lente.”',
 			attribution: 'Present day',
 			year: '2025',
 			gen: 'present day'
@@ -328,6 +328,38 @@
 				'"': '&quot;',
 				'\'': '&#39;'
 			} )[ c ];
+		} );
+	}
+
+	// Fill the cover slide's left/right vertical friezes with sepia-tinted
+	// portrait thumbnails, repeated enough to cover any reasonable height.
+	// The 22nd figure (Drew) is excluded so the cover doesn't telegraph the
+	// finale.
+	function populateFrieze( root, portraitsUrl, verSuffix ) {
+		var leftTrack = root.querySelector( '[data-mx2-lineage-frieze-left]' );
+		var rightTrack = root.querySelector( '[data-mx2-lineage-frieze-right]' );
+		if ( ! leftTrack || ! rightTrack ) {
+			return;
+		}
+		var sources = FIGURES
+			.map( function ( f ) { return f.portrait; } )
+			.filter( function ( p ) { return p && ! /^16_drew/.test( p ); } );
+		// Repeat 3x so tall viewports stay covered.
+		var seq = sources.concat( sources, sources );
+		seq.forEach( function ( p ) {
+			var url = portraitsUrl + p + verSuffix;
+			var imgL = document.createElement( 'img' );
+			imgL.src = url;
+			imgL.alt = '';
+			imgL.loading = 'lazy';
+			imgL.setAttribute( 'aria-hidden', 'true' );
+			var imgR = document.createElement( 'img' );
+			imgR.src = url;
+			imgR.alt = '';
+			imgR.loading = 'lazy';
+			imgR.setAttribute( 'aria-hidden', 'true' );
+			leftTrack.appendChild( imgL );
+			rightTrack.appendChild( imgR );
 		} );
 	}
 
@@ -358,9 +390,12 @@
 
 		totEl.textContent = String( FIGURES.length ).padStart( 2, '0' );
 
+		// Cover slide (Figure 0) is rendered statically by the PHP shortcode
+		// with .is-active. Dynamic figure slides are appended after it, so
+		// the cover ends up at index 0 and figures occupy indices 1..N.
 		FIGURES.forEach( function ( f, i ) {
 			var slide = document.createElement( 'div' );
-			slide.className = 'mx2-lineage__slide' + ( i === 0 ? ' is-active' : '' );
+			slide.className = 'mx2-lineage__slide';
 
 			var portraitInner;
 			if ( f.portrait ) {
@@ -407,31 +442,46 @@
 
 			slidesEl.appendChild( slide );
 
+			// One tick per figure (cover gets no tick). Tick i corresponds
+			// to slide idx (i + 1).
 			var tick = document.createElement( 'button' );
 			tick.type = 'button';
-			tick.className = 'mx2-lineage__tick' + ( i === 0 ? ' is-active' : '' );
+			tick.className = 'mx2-lineage__tick';
 			tick.setAttribute( 'aria-label', 'Go to ' + f.name );
-			tick.addEventListener( 'click', function () { go( i ); } );
+			tick.addEventListener( 'click', function () { go( i + 1 ); } );
 			ticksEl.appendChild( tick );
 		} );
 
-		var idx = 0;
+		// Populate cover edge friezes with faint portrait thumbnails.
+		populateFrieze( root, portraitsUrl, verSuffix );
+
 		var slides = slidesEl.querySelectorAll( '.mx2-lineage__slide' );
 		var ticks = ticksEl.querySelectorAll( '.mx2-lineage__tick' );
+		var idx = 0; // cover
+		var TOTAL = slides.length; // 1 (cover) + FIGURES.length
 
 		function go( n ) {
-			var next = ( ( n % FIGURES.length ) + FIGURES.length ) % FIGURES.length;
+			var next = ( ( n % TOTAL ) + TOTAL ) % TOTAL;
 			if ( next === idx ) {
 				return;
 			}
 			slides[ idx ].classList.remove( 'is-active' );
-			ticks[ idx ].classList.remove( 'is-active' );
+			if ( idx > 0 ) {
+				ticks[ idx - 1 ].classList.remove( 'is-active' );
+			}
 			idx = next;
 			slides[ idx ].classList.add( 'is-active' );
-			ticks[ idx ].classList.add( 'is-active' );
-			curEl.textContent = String( idx + 1 ).padStart( 2, '0' );
-			yearEl.textContent = FIGURES[ idx ].year;
-			genEl.textContent = FIGURES[ idx ].gen;
+			if ( idx === 0 ) {
+				curEl.textContent = '00';
+				yearEl.textContent = '—';
+				genEl.textContent = 'before the work';
+			} else {
+				ticks[ idx - 1 ].classList.add( 'is-active' );
+				var f = FIGURES[ idx - 1 ];
+				curEl.textContent = String( idx ).padStart( 2, '0' );
+				yearEl.textContent = f.year;
+				genEl.textContent = f.gen;
+			}
 		}
 
 		if ( prevBtn ) prevBtn.addEventListener( 'click', function () { go( idx - 1 ); } );

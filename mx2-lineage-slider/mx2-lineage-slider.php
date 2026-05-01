@@ -3,7 +3,7 @@
  * Plugin Name:       MX2 Lineage Slider
  * Plugin URI:        https://www.mx2.agency/
  * Description:       Renders the MEDICI + MAESTRO lineage slider via the [mx2_lineage_slider] shortcode. Drop the shortcode into any page or post.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Mx2 Global
  * License:           GPL-2.0-or-later
  * Text Domain:       mx2-lineage-slider
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.6' );
+define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.7' );
 define( 'MX2_LINEAGE_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MX2_LINEAGE_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 
@@ -48,6 +48,7 @@ function mx2_lineage_slider_register_assets() {
 		'MX2LineageSliderConfig',
 		array(
 			'portraitsUrl' => MX2_LINEAGE_SLIDER_URL . 'assets/portraits/',
+			'imagesUrl'    => MX2_LINEAGE_SLIDER_URL . 'assets/images/',
 			'version'      => MX2_LINEAGE_SLIDER_VERSION,
 		)
 	);
@@ -120,19 +121,50 @@ function mx2_lineage_slider_shortcode( $atts ) {
 		<span class="mx2-lineage__corner mx2-lineage__corner--bl"></span>
 		<span class="mx2-lineage__corner mx2-lineage__corner--br"></span>
 
-		<div class="mx2-lineage__slides" data-mx2-lineage-slides></div>
+		<div class="mx2-lineage__slides" data-mx2-lineage-slides>
+			<?php // Cover slide (Figure 0) — rendered statically; figure slides are appended by JS. ?>
+			<div class="mx2-lineage__slide mx2-lineage__slide--cover is-active" data-mx2-lineage-cover>
+				<div class="mx2-lineage__cover-frieze mx2-lineage__cover-frieze--left">
+					<div class="mx2-lineage__frieze-track" data-mx2-lineage-frieze-left></div>
+				</div>
+				<div class="mx2-lineage__cover-frieze mx2-lineage__cover-frieze--right">
+					<div class="mx2-lineage__frieze-track" data-mx2-lineage-frieze-right></div>
+				</div>
+				<div class="mx2-lineage__cover-layout">
+					<div class="mx2-lineage__cover-mark">
+						<img src="<?php echo esc_url( MX2_LINEAGE_SLIDER_URL . 'assets/images/cover-mark.png?ver=' . MX2_LINEAGE_SLIDER_VERSION ); ?>" alt="Mx2" loading="eager" />
+					</div>
+					<div class="mx2-lineage__cover-eyebrow">Before the Work</div>
+					<h2 class="mx2-lineage__cover-title">The <em>Bloodline</em></h2>
+					<div class="mx2-lineage__cover-tag">Not a brand story. A lineage.</div>
+					<div class="mx2-lineage__cover-rule"></div>
+					<div class="mx2-lineage__cover-route">
+						<span>Florence</span><span class="mx2-lineage__cover-arrow">&rarr;</span>
+						<span>Rome</span><span class="mx2-lineage__cover-arrow">&rarr;</span>
+						<span>San Lupo</span><span class="mx2-lineage__cover-arrow">&rarr;</span>
+						<span>America</span>
+					</div>
+					<div class="mx2-lineage__cover-stats">
+						<div class="mx2-lineage__cover-stat"><div class="mx2-lineage__cover-num">22</div><div class="mx2-lineage__cover-lbl">Names</div></div>
+						<div class="mx2-lineage__cover-stat"><div class="mx2-lineage__cover-num">5</div><div class="mx2-lineage__cover-lbl">Centuries</div></div>
+						<div class="mx2-lineage__cover-stat"><div class="mx2-lineage__cover-num">1</div><div class="mx2-lineage__cover-lbl">Unbroken Line</div></div>
+					</div>
+					<div class="mx2-lineage__cover-quote">&ldquo;You don&rsquo;t build a brand. You inherit a standard.&rdquo;</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="mx2-lineage__controls">
 			<button class="mx2-lineage__arrow" data-mx2-lineage-prev aria-label="Previous">&lsaquo;</button>
 			<div class="mx2-lineage__progress">
 				<span class="mx2-lineage__count">
-					<span data-mx2-lineage-cur>01</span><em>/</em><span data-mx2-lineage-tot>22</span>
+					<span data-mx2-lineage-cur>00</span><em>/</em><span data-mx2-lineage-tot>22</span>
 				</span>
 				<div class="mx2-lineage__ticks" data-mx2-lineage-ticks></div>
 				<span class="mx2-lineage__scrub-meta">
-					<span class="mx2-lineage__scrub-gold" data-mx2-lineage-year>1389</span>
+					<span class="mx2-lineage__scrub-gold" data-mx2-lineage-year>&mdash;</span>
 					&middot;
-					<span data-mx2-lineage-gen>19th great-grandfather</span>
+					<span data-mx2-lineage-gen>before the work</span>
 				</span>
 			</div>
 			<button class="mx2-lineage__arrow" data-mx2-lineage-next aria-label="Next">&rsaquo;</button>

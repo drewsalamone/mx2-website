@@ -524,6 +524,179 @@
 .mx2-lineage__corner--bl { bottom: 84px; left: 32px; border-bottom: 1px solid rgba(159, 136, 108, 0.4); border-left: 1px solid rgba(159, 136, 108, 0.4); }
 .mx2-lineage__corner--br { bottom: 84px; right: 32px; border-bottom: 1px solid rgba(159, 136, 108, 0.4); border-right: 1px solid rgba(159, 136, 108, 0.4); }
 
+/* ===== Cover slide (Figure 0) ===== */
+.mx2-lineage__slide--cover .mx2-lineage__slide-grid { display: none; }
+.mx2-lineage__slide--cover .mx2-lineage__century { display: none; }
+.mx2-lineage__cover-layout {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 80px 64px;
+	z-index: 3;
+	opacity: 0;
+	transition: opacity 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) 80ms;
+}
+.mx2-lineage__slide--cover.is-active .mx2-lineage__cover-layout { opacity: 1; }
+
+/* Edge friezes — vertical strips of faint portraits */
+.mx2-lineage__cover-frieze {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 17%;
+	overflow: hidden;
+	z-index: 1;
+}
+.mx2-lineage__cover-frieze--left { left: 0; }
+.mx2-lineage__cover-frieze--right { right: 0; }
+.mx2-lineage__frieze-track {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+.mx2-lineage__frieze-track img {
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
+	object-position: center 30%;
+	opacity: 0.28;
+	filter: sepia(0.5) hue-rotate(-12deg) saturate(0.8) brightness(0.95) contrast(1.05) blur(0.5px);
+	flex-shrink: 0;
+	max-width: none;
+}
+.mx2-lineage__cover-frieze::before,
+.mx2-lineage__cover-frieze::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 220px;
+	z-index: 2;
+	pointer-events: none;
+}
+.mx2-lineage__cover-frieze::before { top: 0; background: linear-gradient(to bottom, #050402 0%, rgba(5, 4, 2, 0) 100%); }
+.mx2-lineage__cover-frieze::after  { bottom: 0; background: linear-gradient(to top, #050402 0%, rgba(5, 4, 2, 0) 100%); }
+.mx2-lineage__cover-frieze--left {
+	-webkit-mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+	mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+}
+.mx2-lineage__cover-frieze--right {
+	-webkit-mask-image: linear-gradient(to left, #000 0%, #000 60%, transparent 100%);
+	mask-image: linear-gradient(to left, #000 0%, #000 60%, transparent 100%);
+}
+
+/* Cover content */
+.mx2-lineage__cover-mark {
+	width: 168px;
+	height: 210px;
+	display: grid;
+	place-items: center;
+	margin-bottom: 28px;
+	filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+}
+.mx2-lineage__cover-mark img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	max-width: none;
+}
+.mx2-lineage__cover-eyebrow {
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: 0.48em;
+	text-transform: uppercase;
+	color: var(--mx2-gold);
+	margin-bottom: 22px;
+}
+.mx2-lineage__cover-title {
+	font-family: var(--font-display);
+	font-weight: 500;
+	line-height: 0.96;
+	font-size: 96px;
+	letter-spacing: -0.005em;
+	margin: 0;
+	color: #f3ead4;
+	max-width: 14ch;
+	text-wrap: balance;
+}
+.mx2-lineage__cover-title em {
+	font-style: italic;
+	font-weight: 400;
+	color: var(--mx2-gold);
+}
+.mx2-lineage__cover-tag {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 400;
+	font-size: 28px;
+	color: var(--mx2-gold);
+	margin-top: 18px;
+}
+.mx2-lineage__cover-rule {
+	width: 96px;
+	height: 1px;
+	background: var(--mx2-gold);
+	opacity: 0.6;
+	margin: 28px 0 22px;
+}
+.mx2-lineage__cover-route {
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 13px;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: #d6cdb1;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.mx2-lineage__cover-arrow {
+	color: var(--mx2-gold);
+	opacity: 0.7;
+	font-size: 14px;
+}
+.mx2-lineage__cover-stats {
+	margin-top: 32px;
+	display: flex;
+	gap: 56px;
+	align-items: baseline;
+}
+.mx2-lineage__cover-num {
+	font-family: var(--font-display);
+	font-weight: 500;
+	font-size: 48px;
+	color: #f3ead4;
+	line-height: 1;
+}
+.mx2-lineage__cover-lbl {
+	font-family: var(--font-body);
+	font-weight: 400;
+	font-size: 11px;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: rgba(159, 136, 108, 0.85);
+	margin-top: 8px;
+}
+.mx2-lineage__cover-quote {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 1.4;
+	color: #d6cdb1;
+	margin-top: 36px;
+	max-width: 38ch;
+	text-wrap: balance;
+}
+
 /* Smaller-screen tweaks */
 @media (max-width: 1100px) {
 	.mx2-lineage__slide-grid {
@@ -663,6 +836,27 @@
 		letter-spacing: 0.16em;
 		white-space: normal;
 	}
+
+	/* Cover slide — tighter on phones */
+	.mx2-lineage__cover-layout {
+		padding: 32px 16px 130px;
+		justify-content: flex-start;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+	.mx2-lineage__cover-mark { width: 96px; height: 120px; margin-bottom: 14px; margin-top: 8px; }
+	.mx2-lineage__cover-eyebrow { font-size: 10px; letter-spacing: 0.36em; margin-bottom: 14px; }
+	.mx2-lineage__cover-title { font-size: 48px; }
+	.mx2-lineage__cover-tag { font-size: 18px; margin-top: 12px; }
+	.mx2-lineage__cover-rule { margin: 18px 0 14px; }
+	.mx2-lineage__cover-route { font-size: 11px; letter-spacing: 0.22em; gap: 8px; }
+	.mx2-lineage__cover-arrow { font-size: 12px; }
+	.mx2-lineage__cover-stats { gap: 24px; margin-top: 22px; flex-wrap: wrap; justify-content: center; }
+	.mx2-lineage__cover-num { font-size: 32px; }
+	.mx2-lineage__cover-lbl { font-size: 9.5px; letter-spacing: 0.22em; margin-top: 4px; }
+	.mx2-lineage__cover-quote { font-size: 16px; margin-top: 22px; max-width: 30ch; }
+	.mx2-lineage__cover-frieze { width: 14%; }
+	.mx2-lineage__frieze-track img { height: 200px; opacity: 0.18; }
 }
 
 @media (max-width: 380px) {
@@ -670,6 +864,10 @@
 	.mx2-lineage__name { font-size: 22px; }
 	.mx2-lineage__epithet { font-size: 13px; }
 	.mx2-lineage__story p { font-size: 12.5px; }
+	.mx2-lineage__cover-title { font-size: 40px; }
+	.mx2-lineage__cover-tag { font-size: 16px; }
+	.mx2-lineage__cover-num { font-size: 28px; }
+	.mx2-lineage__cover-quote { font-size: 14px; }
 }
 
 /* Pseudo-fullscreen — used on browsers that don't support the real
