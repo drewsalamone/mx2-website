@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,21 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.9 =
+Mobile: removed the inner overflow-y: auto scroll on the slide-grid that
+was trapping iOS touch gestures (once you scrolled inside the slider
+you couldn't scroll the page until you tapped out). The slider section
+now auto-grows with the active slide; non-active slides use display:
+none so they take no space; the page handles vertical scroll naturally.
+Arrows now sit at calc(24px + min(20vh, 140px)) so they stay aligned
+with the portrait's vertical center across phone sizes (no more drift
+when content scrolls). Bottom controls flow under the active slide.
+Desktop: arrows moved to the section's left/right edges, vertically
+centered (top: 50%) — same UX as mobile, paddle-style next/prev nav
+beside the portrait. Bottom bar is now just centered progress meta;
+removed the 112px min-height that was needed to align with the old
+in-bar arrows.
 
 = 1.0.8 =
 Mobile UX: prev/next arrows moved out of the bottom controls bar to the

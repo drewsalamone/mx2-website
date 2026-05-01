@@ -427,7 +427,6 @@
 	right: 0;
 	bottom: 0;
 	padding: 28px 48px;
-	min-height: 112px; /* 28 + arrow 56 + 28 — keeps progress aligned with arrow centers */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -435,7 +434,8 @@
 }
 .mx2-lineage__arrow {
 	position: absolute;
-	bottom: 28px;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 56px;
 	height: 56px;
 	border: 1px solid rgba(159, 136, 108, 0.5);
@@ -448,8 +448,7 @@
 	transition:
 		background 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
 		color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-		border-color 200ms,
-		transform 200ms;
+		border-color 200ms;
 	font-family: var(--font-display);
 	font-size: 26px;
 	font-weight: 300;
@@ -457,8 +456,8 @@
 	border-radius: 0;
 	z-index: 21;
 }
-.mx2-lineage__arrow--prev { left: 48px; }
-.mx2-lineage__arrow--next { right: 48px; }
+.mx2-lineage__arrow--prev { left: 32px; right: auto; bottom: auto; }
+.mx2-lineage__arrow--next { right: 32px; left: auto; bottom: auto; }
 .mx2-lineage__arrow:hover {
 	background: var(--mx2-gold);
 	color: #000;
@@ -724,8 +723,10 @@
 /* Mobile / tablet */
 @media (max-width: 760px) {
 	.mx2-lineage {
-		min-height: 100svh;
-		height: 100svh;
+		/* Auto-grow with the active slide so the page handles scroll —
+		   no nested scroll container to trap touch gestures. */
+		min-height: 0;
+		height: auto;
 		/* Reserve right-side space so sticky launcher widgets (e.g. the
 		   "Get In Touch" tab on mx2.agency) don't clip text. */
 		--mx2-lineage-right-safe: 64px;
@@ -741,16 +742,37 @@
 	.mx2-lineage__fs-btn { width: 32px; height: 32px; }
 	.mx2-lineage__fs-btn svg { width: 12px; height: 12px; }
 
+	/* Slide stacking: active slide flows in document, others removed
+	   from flow. Removes the inner scroll container that was trapping
+	   iOS touch gestures. */
+	.mx2-lineage__slides {
+		position: relative;
+		inset: auto;
+		height: auto;
+		min-height: 1px;
+	}
+	.mx2-lineage__slide {
+		transition: none;
+	}
+	.mx2-lineage__slide.is-active {
+		position: relative;
+		inset: auto;
+	}
+	.mx2-lineage__slide:not(.is-active) {
+		display: none;
+	}
+
 	.mx2-lineage__slide-grid {
+		position: relative;
+		inset: auto;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto auto auto;
 		align-items: start;
 		justify-items: center;
-		padding: 20px 16px 80px;
+		padding: 20px 16px 32px;
 		gap: 10px;
-		overflow-y: auto;
-		height: 100%;
-		-webkit-overflow-scrolling: touch;
+		overflow: visible;
+		height: auto;
 	}
 
 	.mx2-lineage__portrait-wrap {
@@ -815,16 +837,17 @@
 	.mx2-lineage__century { display: none; }
 
 	/* Nav arrows float at the slider's left/right edges, vertically
-	   centered roughly with the portrait. Keeps them off the bottom
-	   so a tall story panel can't collide with the controls bar, and
-	   makes them thumb-friendly. The right arrow respects the right
-	   safe area so it clears the host theme's sticky widget. */
+	   centered with the portrait. Position based on portrait wrap math
+	   (slide-grid pad-top 20px + portrait margin-top 4px + portrait
+	   half-height) so arrows track the portrait reliably across phone
+	   sizes. Right arrow respects the right safe area so the host
+	   theme's sticky widget can't sit on it. */
 	.mx2-lineage__arrow {
 		width: 44px;
 		height: 44px;
 		font-size: 22px;
 		bottom: auto;
-		top: 24vh;
+		top: calc(24px + min(20vh, 140px));
 		transform: translateY(-50%);
 		background: rgba(15, 15, 17, 0.55);
 		-webkit-backdrop-filter: blur(6px);
@@ -833,11 +856,18 @@
 	.mx2-lineage__arrow--prev { left: 6px; right: auto; }
 	.mx2-lineage__arrow--next { right: var(--mx2-lineage-right-safe); left: auto; }
 
-	/* Bottom bar: just centered progress meta now that arrows live elsewhere. */
+	/* Bottom bar: just centered progress meta now that arrows live
+	   elsewhere. Flow it in the document under the active slide so
+	   nothing overlaps with content. */
 	.mx2-lineage__controls {
+		position: relative;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		min-height: 0;
 		display: flex;
 		justify-content: center;
-		padding: 10px 12px 14px;
+		padding: 14px 12px 18px;
 	}
 	.mx2-lineage__progress {
 		flex-direction: column;
@@ -855,12 +885,14 @@
 		white-space: normal;
 	}
 
-	/* Cover slide — tighter on phones */
+	/* Cover slide — tighter on phones, flow in document so the slide
+	   sizes to content. */
 	.mx2-lineage__cover-layout {
-		padding: 32px 16px 80px;
+		position: relative;
+		inset: auto;
+		padding: 32px 16px 32px;
 		justify-content: flex-start;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
+		overflow: visible;
 	}
 	.mx2-lineage__cover-mark { width: 96px; height: 120px; margin-bottom: 14px; margin-top: 8px; }
 	.mx2-lineage__cover-eyebrow { font-size: 10px; letter-spacing: 0.36em; margin-bottom: 14px; }
