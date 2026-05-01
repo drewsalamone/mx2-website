@@ -3,7 +3,7 @@
  * Plugin Name:       MX2 Lineage Slider
  * Plugin URI:        https://www.mx2.agency/
  * Description:       Renders the MEDICI + MAESTRO lineage slider via the [mx2_lineage_slider] shortcode. Drop the shortcode into any page or post.
- * Version:           1.0.7
+ * Version:           1.0.8
  * Author:            Mx2 Global
  * License:           GPL-2.0-or-later
  * Text Domain:       mx2-lineage-slider
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.7' );
+define( 'MX2_LINEAGE_SLIDER_VERSION', '1.0.8' );
 define( 'MX2_LINEAGE_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MX2_LINEAGE_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 
@@ -155,7 +155,6 @@ function mx2_lineage_slider_shortcode( $atts ) {
 		</div>
 
 		<div class="mx2-lineage__controls">
-			<button class="mx2-lineage__arrow" data-mx2-lineage-prev aria-label="Previous">&lsaquo;</button>
 			<div class="mx2-lineage__progress">
 				<span class="mx2-lineage__count">
 					<span data-mx2-lineage-cur>00</span><em>/</em><span data-mx2-lineage-tot>22</span>
@@ -167,8 +166,11 @@ function mx2_lineage_slider_shortcode( $atts ) {
 					<span data-mx2-lineage-gen>before the work</span>
 				</span>
 			</div>
-			<button class="mx2-lineage__arrow" data-mx2-lineage-next aria-label="Next">&rsaquo;</button>
 		</div>
+
+		<?php // Nav arrows are siblings of .controls so they can be repositioned at the slider's left/right edges on mobile. ?>
+		<button class="mx2-lineage__arrow mx2-lineage__arrow--prev" data-mx2-lineage-prev aria-label="Previous">&lsaquo;</button>
+		<button class="mx2-lineage__arrow mx2-lineage__arrow--next" data-mx2-lineage-next aria-label="Next">&rsaquo;</button>
 	</section>
 	<?php
 	return ob_get_clean();

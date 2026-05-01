@@ -4,7 +4,7 @@ Tags: slider, shortcode, mx2, medici, maestro, lineage
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,17 @@ Replace the matching file in `assets/portraits/` (filenames match the `portrait`
 Use `height` attribute, e.g. `[mx2_lineage_slider height="720px"]`.
 
 == Changelog ==
+
+= 1.0.8 =
+Mobile UX: prev/next arrows moved out of the bottom controls bar to the
+slider's left/right edges, vertically centered roughly with the portrait.
+Bottom bar simplifies to just the centered progress meta. Arrows have a
+subtle backdrop blur for legibility over portraits. The right arrow
+respects the existing right safe area so the host theme's sticky widget
+can't clip it. A long story panel can no longer collide with the bottom
+controls bar. Desktop layout unchanged visually — controls bar gets a
+112px min-height so progress vertical-aligns with the (now absolutely
+positioned) corner arrows.
 
 = 1.0.7 =
 Pulled the third Claude Design handoff. New cover slide ("Figure 0")
