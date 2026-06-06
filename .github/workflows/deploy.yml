@@ -1,0 +1,48 @@
+# Auto-deploy the mx2-lineage-slider plugin to mx2.agency.
+#
+# Mirrors the skippackvillage workflow but points at a plugin
+# directory inside the repo instead of a theme. SRC_PATH is
+# `./mx2-lineage-slider` (the plugin subdir), and REMOTE_PATH lands
+# at `wp-content/plugins/mx2-lineage-slider/` on the WP Engine
+# install `mx2main`.
+#
+# Production only — no staging install on WPE for this site (per
+# Drew's preference, since the plugin is self-contained and small).
+#
+# Drew + Claude, 2026-06-05.
+#
+# ACTIVATION:
+#   1. Copy the WPE_SSHG_KEY_PRIVATE secret from the skippackvillage
+#      repo to this repo's secrets (Settings → Secrets and variables
+#      → Actions → New repository secret). It's the same WP Engine
+#      SSH Gateway key — one key, all your installs.
+#   2. Test the manual trigger (Actions tab → Deploy → Run workflow)
+#   3. Once the manual run succeeds, uncomment the `push:` block
+#      below to enable auto-deploy on every push to main.
+
+name: Deploy mx2-lineage-slider to WPEngine
+
+on:
+  # Auto-deploy is OFF until WPE_SSHG_KEY_PRIVATE is configured.
+  # Uncomment to enable:
+  # push:
+  #   branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    name: Deploy → production (mx2main)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Deploy plugin to WPEngine production
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: mx2main
+          SRC_PATH: "mx2-lineage-slider"
+          REMOTE_PATH: "wp-content/plugins/mx2-lineage-slider/"
+          FLAGS: "-azvr --inplace --delete --exclude=.git --exclude=.github --exclude=node_modules --exclude=.DS_Store --exclude=readme.txt"
+          CACHE_CLEAR: "TRUE"
